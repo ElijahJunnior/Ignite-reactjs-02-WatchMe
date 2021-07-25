@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { Button } from './Button';
 
 import { api } from './../services/api';
+
+import { SelectedGenreContext } from '../contexts/SelectedGenreContext'
+
+import './../styles/sidebar.scss';
 
 interface GenreResponseProps {
   id: number;
@@ -14,7 +18,7 @@ export function SideBar() {
 
   const [genres, setGenres] = useState<GenreResponseProps[]>([]);
 
-  const [selectedGenreId, setSelectedGenreId] = useState(1);
+  const { selectedGenreId, setSelectedGenreId } = useContext(SelectedGenreContext);
 
   useEffect(() => {
     api.get<GenreResponseProps[]>('genres').then(response => {
